@@ -1,0 +1,30 @@
+{
+  "name": "libsql",
+  "version": "1.0.0",
+  "description": "Proyecto con libSQL, Node, Bulma y Vue",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "libsql",
+    "turso",
+    "node",
+    "vue",
+    "bulma"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@libsql/client": "^0.15.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
