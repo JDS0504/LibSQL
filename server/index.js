@@ -2,11 +2,23 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import db from './db.js';
+import { createClient } from '@libsql/client';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+// Configurar __dirname en módulos ES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Configuración
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Cliente de base de datos
+const db = createClient({
+  url: process.env.DATABASE_URL || 'file:./local.db'
+});
 
 // Middleware
 app.use(cors());
@@ -287,6 +299,14 @@ app.delete('/api/ventas/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// Servir archivos estáticos desde la carpeta public (para producción)
+app.use(express.static(path.join(__dirname, '../public')));
+
+// Ruta catch-all para SPA
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // Iniciar servidor
